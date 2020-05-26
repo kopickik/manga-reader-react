@@ -1,0 +1,8 @@
+{
+  "name": "manga-reader-react",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Kyle Kopicki <kyle.kopicki@gmail.com>",
+  "license": "UNLICENSED",
+  "private": true
+}

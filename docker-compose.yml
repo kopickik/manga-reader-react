@@ -1,0 +1,19 @@
+version: '3'
+services:
+  manga-services:
+    build: './services'
+    depends_on:
+      - manga-svc-db
+    environment:
+      - DB_URL=mysql://root:VQTmFnwGbO@listings-svc-db/db?charset=UTF8
+    ports:
+      - 7000:7000
+    volumes:
+      - ./services:/opt/app
+  manga-svc-db:
+    environment:
+      - MYSQL_ROOT_PASSWORD=VQTmFnwGbO
+      - MYSQL_DATABASE=db
+    image: mysql:5.7.20
+    ports:
+      - 0.0.0.0:7001:3306
