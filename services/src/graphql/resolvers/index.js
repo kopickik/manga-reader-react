@@ -1,7 +1,14 @@
-import * as Mutation from './mutation'
+// import { DateTimeResolver } from 'graphql-scalars'
+// import * as Mutation from './mutation'
 import * as Query from './query'
-import UserSession from './custom/UserSession'
 
-const resolvers = { Mutation, Query, UserSession }
+const resolvers = {
+  // Mutation,
+  Query: Query,
+  Manga: {
+    lastChapterDate: (mangaObj) => new Date(mangaObj.lastChapterDate * 1000),
+  },
+  // DateTime: DateTimeResolver,
+}
 
 export default resolvers

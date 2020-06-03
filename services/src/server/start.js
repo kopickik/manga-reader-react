@@ -5,7 +5,8 @@ import cors from 'cors'
 import express from 'express'
 import chalk from 'chalk'
 
-// import resolvers from '@/graphql/resolvers'
+import schema from '@/graphql/schema'
+import resolvers from '@/graphql/resolvers'
 import typeDefs from '@/graphql/typeDefs'
 
 import formatGraphQLErrors from './formatGraphQLErrors'
@@ -15,7 +16,8 @@ const PORT = process.env.PORT
 const apolloServer = new ApolloServer({
   context: (a) => a,
   formatError: formatGraphQLErrors,
-  resolvers: {},
+  schema,
+  resolvers,
   typeDefs,
 })
 
