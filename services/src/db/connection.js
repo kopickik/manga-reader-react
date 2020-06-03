@@ -1,15 +1,6 @@
-import { Sequelize } from 'sequelize'
+import mongoose from 'mongoose'
 
-require('dotenv').config()
-
-const DB_URL = process.env.DB_URL
-
-const sequelize = new Sequelize(DB_URL, {
-  dialectOptions: {
-    charset: 'utf8',
-    multipleStatements: true,
-  },
-  logging: false,
+mongoose.connect(process.env.DB_URL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 })
-
-export default sequelize
