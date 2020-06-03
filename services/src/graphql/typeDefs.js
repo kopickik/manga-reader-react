@@ -8,6 +8,19 @@ const typeDefs = gql`
     title: String!
     image: String
     lastChapterDate: Date
+    info: MangaInfo
+  }
+
+  type MangaInfo {
+    id: ID!
+    chapters: [Chapter!]!
+  }
+
+  type Chapter {
+    id: ID!
+    lastUpdated: Date
+    number: String
+    title: String
   }
 
   type Mutation {
@@ -16,6 +29,7 @@ const typeDefs = gql`
 
   type Query {
     mangas: [Manga!]!
+    manga(id: ID!): Manga!
   }
 
   type ServerMessage {
