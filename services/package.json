@@ -13,9 +13,11 @@
     "chalk": "^4.0.0"
   },
   "scripts": {
+    "docker:start": "docker start manga-reader-react-svc",
+    "start:cron": "babel-node src/cron.js",
+    "start:dev": "babel-node src/index.js",
     "dev": "babel-node src/index.js",
-    "watch": "babel-watch src/index.js",
-    "start:cron": "babel-node src/cron.js"
+    "watch": "babel-watch src/index.js"
   },
   "dependencies": {
     "@babel/node": "^7.8.7",
