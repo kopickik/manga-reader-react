@@ -10,7 +10,13 @@ const resolvers = {
     info: (mangaObj) => {
       return {
         chapters: [
-          { id: mangaObj.id, lastUpdated: new Date(), number: 1, title: 'Chapter 1' },
+          {
+            summary: mangaObj.chapters,
+            id: mangaObj.id,
+            lastUpdated: new Date(),
+            number: 1,
+            title: 'Chapter 1',
+          },
           { id: 2, lastUpdated: new Date(), number: 2, title: 'Chapter 2' },
         ],
       }

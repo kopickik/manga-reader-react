@@ -1,7 +1,7 @@
 import Manga from '@/db/models'
 
-const mangaResolver = (context, args) => {
+const fetchOneManga = (context, args) => {
   return Manga.findById({ _id: args.id })
 }
 
-export default mangaResolver
+export default fetchOneManga

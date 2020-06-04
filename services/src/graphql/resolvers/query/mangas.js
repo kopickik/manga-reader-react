@@ -1,7 +1,7 @@
 import Manga from '@/db/models'
 
-const mangasResolver = () => {
+const fetchAllMangas = () => {
   return Manga.find({}).sort({ lastChapterDate: 'desc' })
 }
 
-export default mangasResolver
+export default fetchAllMangas

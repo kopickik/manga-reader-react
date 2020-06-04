@@ -14,12 +14,13 @@ const typeDefs = gql`
   type MangaInfo {
     id: ID!
     chapters: [Chapter!]!
+    description: Text
   }
 
   type Chapter {
+    number: Number
     id: ID!
     lastUpdated: Date
-    number: String
     title: String
   }
 
