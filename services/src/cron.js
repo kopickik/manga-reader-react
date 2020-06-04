@@ -69,11 +69,12 @@ const insertMangaInfo = async (manga) => {
   console.log(`${manga.alias} inserted.`)
 }
 
-// seed()
-insertMangaInfosById()
-  .then((err, result) => console.log(`Err::${err} || Result::${result}`))
-  .catch((e) => console.error(`Other error: ${e}`))
-  .finally(() => process.exit(0))
+seed().then(() => {
+  insertMangaInfosById()
+    .then((err, result) => console.log(`Err::${err} || Result::${result}`))
+    .catch((e) => console.error(`Other error: ${e}`))
+    .finally(() => process.exit(0))
+})
 
 // const task = cron.schedule('2 * * * * *', () => {
 //   console.log('running a task every 2 seconds')

@@ -7,13 +7,14 @@ services:
     environment:
       - DB_URL=mysql://root:VQTmFnwGbO@listings-svc-db/db?charset=UTF8
     ports:
-      - 7000:7000
+      - 3001:3001
     volumes:
       - ./services:/opt/app
   manga-svc-db:
     environment:
       - MYSQL_ROOT_PASSWORD=VQTmFnwGbO
       - MYSQL_DATABASE=db
-    image: mysql:5.7.20
+      - MONGODB_URL=mongodb://localhost:37017/manga-reader-react-svc
+    image: mongo:4.2.7
     ports:
-      - 0.0.0.0:7001:3306
+      - 0.0.0.0:37017:27017
