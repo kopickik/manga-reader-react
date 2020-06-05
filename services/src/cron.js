@@ -1,6 +1,5 @@
 import 'dotenv/config'
 import axios from 'axios'
-import cron from 'node-cron'
 import _ from 'lodash'
 const { ConcurrencyManager } = require('axios-concurrency')
 import { Manga, MangaInfo } from '@/db/models'
@@ -75,13 +74,6 @@ seed().then(() => {
     .catch((e) => console.error(`Other error: ${e}`))
     .finally(() => process.exit(0))
 })
-
-// const task = cron.schedule('2 * * * * *', () => {
-//   console.log('running a task every 2 seconds')
-//   process.exit(0)
-// })
-
-// task.start()
 
 function processMangaIds(ids) {
   return Promise.all(
