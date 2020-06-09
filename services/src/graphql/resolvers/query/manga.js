@@ -4,8 +4,7 @@ import MangasSvcAdapter from '@/adapters/mangas.svc.adapter'
 const mangaResolver = async (err, args) => {
   if (err || !args.id) return
   const theId = mongoose.Types.ObjectId(args.id)
-  if (!mongoose.isValidObjectId(theId))
-    return new Error(`You didn't pass a valid ObjectId: ${args}`)
+  if (!mongoose.isValidObjectId(theId)) return new Error(`Invalid ObjectId: ${args}`)
   try {
     return await MangasSvcAdapter.fetchMangaById({ _id: theId })
   } catch (e) {
