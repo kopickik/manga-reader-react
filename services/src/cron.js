@@ -40,15 +40,27 @@ const transformSummaryResponse = (manga) =>
     })
   )
 
-const transformSingleMangaResponse = (mangaObj) => new MangaInfo(mangaObj)
+const transformSingleMangaResponse = async ({ id, data }) => {
+  try {
+    const record = await Manga.findById({ _id: id })
+    record.info = new MangaInfo(data)
+    record.save()
+    console.log(`Record with ID ${record._id} updated!`)
+    sleep(2000)
+  } catch (e) {
+    return new Error(`Error! ${e}`)
+  }
+}
 
 const seed = async () => {
   const res = await axiosME.get()
   const mangas = transformSummaryResponse(res.data.manga)
-
-  await Manga.insertMany(mangas)
-
-  console.log('Seeding step 1 - Manga summaries inserted into mangas table.')
+  try {
+    await Manga.insertMany(mangas)
+    console.log('Seeding step 1 - Manga summaries inserted into mangas table.')
+  } catch (e) {
+    return new Error(`Error!: ${e}`)
+  }
 }
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
@@ -60,29 +72,28 @@ const insertMangaInfosById = async () => {
 
 const fetchSingleManga = async (id) => {
   const res = await axiosMI.get(`${process.env.MANGA_INFO_URL}/${id}/`)
-  return res.data
+  return Object.assign({
+    id: id,
+    data: res.data,
+  })
 }
-
-const insertMangaInfo = async (manga) => {
-  await MangaInfo.create(manga)
-  console.log(`${manga.alias} inserted.`)
-}
-
-seed().then(() => {
-  insertMangaInfosById()
-    .then((err, result) => console.log(`Err::${err} || Result::${result}`))
-    .catch((e) => console.error(`Other error: ${e}`))
-    .finally(() => process.exit(0))
-})
 
 function processMangaIds(ids) {
   return Promise.all(
     ids.map(async (id) => {
       await fetchSingleManga(id)
-        .then((mangaInfo) => transformSingleMangaResponse(mangaInfo))
-        .then((transformed) => insertMangaInfo(transformed))
+        .then((mangaInfo) => {
+          transformSingleMangaResponse(mangaInfo)
+        })
         .catch((e) => console.error(`Error!: ${e}`))
-        .finally(() => sleep(5000))
+        .finally(() => sleep(1000))
     })
   )
 }
+
+seed().then(() => {
+  insertMangaInfosById()
+    .then((err, result) => console.log(`Err::${err.length} || Result::${result}`))
+    .catch((e) => console.error(`Other error: ${e}`))
+    .finally(() => process.exit(0))
+})
