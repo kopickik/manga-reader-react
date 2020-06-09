@@ -9,6 +9,8 @@ import schema from '@/graphql/schema'
 import resolvers from '@/graphql/resolvers'
 import typeDefs from '@/graphql/typeDefs'
 
+import setupRoutes from './routes'
+
 import formatGraphQLErrors from './formatGraphQLErrors'
 
 const PORT = process.env.PORT
@@ -37,6 +39,8 @@ app.get('/', (req, res) => {
 })
 
 apolloServer.applyMiddleware({ app, cors: false, path: '/graphql' })
+
+setupRoutes(app)
 
 app.all('*', (req, res) => {
   res.status(404).json({ message: '404 Not Found' })

@@ -1,5 +1,6 @@
 // import { DateTimeResolver } from 'graphql-scalars'
 // import * as Mutation from './mutation'
+import _ from 'lodash'
 import * as Query from './query'
 
 const resolvers = {
@@ -7,22 +8,18 @@ const resolvers = {
   Query: Query,
   Manga: {
     lastChapterDate: (mangaObj) => new Date(mangaObj.lastChapterDate * 1000),
-    info: (mangaObj) => {
-      return {
-        chapters: [
-          {
-            summary: mangaObj.chapters,
-            id: mangaObj.id,
-            lastUpdated: new Date(),
-            number: 1,
-            title: 'Chapter 1',
-          },
-          { id: 2, lastUpdated: new Date(), number: 2, title: 'Chapter 2' },
-        ],
-      }
-    },
   },
-  // DateTime: DateTimeResolver,
+  MangaInfo: {
+    chapters: (mangaInfoObj) =>
+      _.map(mangaInfoObj.chapters, (c, i) => {
+        return {
+          id: c[3],
+          number: c[0],
+          lastUpdated: c[1],
+          title: c[2],
+        }
+      }),
+  },
 }
 
 export default resolvers

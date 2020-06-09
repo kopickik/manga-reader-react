@@ -1,7 +1,7 @@
-import Manga from '@/db/models'
+import MangasSvcAdapter from '@/adapters/mangas.svc.adapter'
 
-const fetchAllMangas = () => {
-  return Manga.find({}).sort({ lastChapterDate: 'desc' })
+const mangasResolver = async () => {
+  return await MangasSvcAdapter.fetchAllMangas()
 }
 
-export default fetchAllMangas
+export default mangasResolver

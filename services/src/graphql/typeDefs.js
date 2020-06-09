@@ -5,21 +5,28 @@ const typeDefs = gql`
 
   type Manga {
     id: ID!
+    categories: [String]
+    alias: String
+    hits: Int
     title: String!
     image: String
     lastChapterDate: Date
-    info: MangaInfo
+    info: MangaInfo!
   }
 
   type MangaInfo {
-    id: ID!
-    chapters: [Chapter!]!
-    description: Text
+    id: ID
+    aka: [String]
+    chapters: [Chapter]
+    description: String
+    title: String
+    url: String
+    image: String
   }
 
   type Chapter {
-    number: Number
-    id: ID!
+    number: Float
+    id: String
     lastUpdated: Date
     title: String
   }
@@ -31,6 +38,7 @@ const typeDefs = gql`
   type Query {
     mangas: [Manga!]!
     manga(id: ID!): Manga!
+    chapters: [Chapter!]!
   }
 
   type ServerMessage {

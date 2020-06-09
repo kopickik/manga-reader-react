@@ -2,16 +2,6 @@ import mongoose from 'mongoose'
 
 const Schema = mongoose.Schema
 
-const MangaSchema = new Schema({
-  alias: String,
-  categories: [String],
-  hits: Number,
-  image: String,
-  lastChapterDate: Number,
-  status: Number,
-  title: String,
-})
-
 const MangaInfoSchema = new Schema({
   aka: [String],
   alias: String,
@@ -35,6 +25,25 @@ const MangaInfoSchema = new Schema({
   type: Number,
   updatedKeywords: Boolean,
   url: String,
+})
+
+MangaInfoSchema.set('toJSON', {
+  virtuals: true,
+})
+
+const MangaSchema = new Schema({
+  alias: String,
+  categories: [String],
+  hits: Number,
+  image: String,
+  lastChapterDate: Number,
+  status: Number,
+  title: String,
+  info: MangaInfoSchema,
+})
+
+MangaSchema.set('toJSON', {
+  virtuals: true,
 })
 
 const Manga = mongoose.model('manga', MangaSchema)
